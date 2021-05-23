@@ -2,6 +2,7 @@
 # importing the requests library
 import requests
 import sys
+import os
 from datetime import datetime
   
 date = datetime.now().strftime("%d-/%m-/%Y")
@@ -29,11 +30,13 @@ response = r.json()
 for center in response['centers']:
     for session in center['sessions']:
         if session['min_age_limit'] <= 18 and session['available_capacity'] > 0:
-            if "dharampur" in center['name'].lower() or "dharampur" in center['address'].lower():
+            # if "dharampur" in center['name'].lower() or "dharampur" in center['address'].lower():
                 # print(center['name']+","+center['address'])
                 # print("Age:{}".format(session['min_age_limit']))
                 # print("Date:{}".format(session['date']))
                 # print("Capacity:{}".format(session['available_capacity']))
+                msg = 'notify-send -u critical \'Check Vaccinations Now\' ' + datetime.now().strftime("%H:%M:%S")
+                os.system(msg)
                 print("VAX")
                 sys.exit()
 
